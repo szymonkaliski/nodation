@@ -208,8 +208,8 @@ define([
 			this.deletionPoint.size = consts.k * this.deletionPoint.size + (1 - consts.k) * (this.isNodeDragged() ? consts.deletionSize : 0);
 
 			// walk and play connections
-			this.connections = Player.walk(this.connections);
-			Player.play(this.connections, this.nodes, this.oscSender, consts.windowSize);
+			// this.connections = Player.walk(this.connections);
+			// Player.play(this.connections, this.nodes, this.oscSender, consts.windowSize);
 		},
 
 		serialize: function() {
