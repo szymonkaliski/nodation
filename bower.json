@@ -1,0 +1,9 @@
+{
+	"name": "nodation",
+	"version": "0.0.1",
+	"dependencies": {
+		"requirejs": "latest",
+		"requirejs-text": "latest",
+		"requirejs-domready": "latest"
+	}
+}

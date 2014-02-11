@@ -4,3 +4,8 @@
 # Node.js
 node_modules/
 
+# Bower
+components/
+
+# Libraries
+public/scripts/libraries

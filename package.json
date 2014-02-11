@@ -1,0 +1,21 @@
+{
+	"name": "nodation",
+	"version": "0.0.1",
+	"description": "",
+	"main": "app.js",
+	"dependencies": {
+		"async": "latest",
+		"express": "latest",
+		"mongojs": "latest"
+	},
+	"devDependencies": {
+		"bower": "latest",
+		"grunt": "latest",
+		"grunt-contrib-copy": "latest",
+		"grunt-contrib-jshint": "latest",
+		"grunt-contrib-watch": "latest",
+		"grunt-concurrent": "latest",
+		"grunt-exec": "latest",
+		"grunt-nodemon": "latest"
+	}
+}
