@@ -47,7 +47,7 @@ define([
 			return connections;
 		},
 
-		play: function(connections, nodes, oscSender, windowSize) {
+		play: function(connections, nodes, windowSize) {
 			var playValues = [];
 
 			connections
@@ -70,11 +70,7 @@ define([
 				});
 
 			if (playValues.length > 0) {
-				oscSender.send(
-					"/graph",
-					FuncUtils.repeat(playValues.length, "f").join(""),
-					playValues
-				);
+				// TODO: add webaudio here
 			}
 		}
 	};

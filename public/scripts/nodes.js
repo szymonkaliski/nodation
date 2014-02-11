@@ -27,12 +27,10 @@ define([
 		nodes: [],
 		connections: [],
 		deletionPoint: { size: 0, pos: null },
-		oscSender: null,
 
-		setup: function(windowSize, oscSender, playerSpeed) {
+		setup: function(windowSize, playerSpeed) {
 			consts.windowSize = windowSize;
 			this.deletionPoint.pos = Vec2.create(windowSize.x / 2, windowSize.y);
-			this.oscSender = oscSender;
 			if (playerSpeed) Player.setSpeed(playerSpeed);
 		},
 
@@ -156,7 +154,7 @@ define([
 		},
 
 		deletionCircleArray: function() {
-			return [this.deletionPoint];
+			return [ this.deletionPoint ];
 		},
 
 		isNodeDragged: function() {
@@ -208,8 +206,8 @@ define([
 			this.deletionPoint.size = consts.k * this.deletionPoint.size + (1 - consts.k) * (this.isNodeDragged() ? consts.deletionSize : 0);
 
 			// walk and play connections
-			// this.connections = Player.walk(this.connections);
-			// Player.play(this.connections, this.nodes, this.oscSender, consts.windowSize);
+			this.connections = Player.walk(this.connections);
+			Player.play(this.connections, this.nodes, consts.windowSize);
 		},
 
 		serialize: function() {

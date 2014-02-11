@@ -31,7 +31,7 @@ require([
 		nodes: Nodes,
 
 		init: function() {
-			this.nodes.setup(Vec2.create(this.settings.width, this.settings.height), this.oscSender, 4);
+			this.nodes.setup(Vec2.create(this.settings.width, this.settings.height));
 
 			this.on("leftMouseDown", function(event) {
 				this.nodes.mouseDown(Vec2.create(event.x, event.y));
@@ -103,7 +103,7 @@ require([
 
 			this.nodes.playPointsArray().forEach(function(playPoint) {
 				drawCircle(this.ctx, playPoint.pos, playPoint.size, color(this.colors.playPoint));
-			});
+			}.bind(this));
 
 			// draw nodes
 			this.nodes.nodesArray().forEach(function(node) {
