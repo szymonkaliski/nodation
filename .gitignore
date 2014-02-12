@@ -9,3 +9,8 @@ components/
 
 # Libraries
 public/scripts/libraries
+
+# Automatically processed files
+public/index.html
+public/scripts/nodation.min.js
+

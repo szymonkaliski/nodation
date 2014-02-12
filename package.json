@@ -14,8 +14,11 @@
 		"grunt-contrib-copy": "latest",
 		"grunt-contrib-jshint": "latest",
 		"grunt-contrib-watch": "latest",
+		"grunt-contrib-requirejs": "latest",
 		"grunt-concurrent": "latest",
 		"grunt-exec": "latest",
-		"grunt-nodemon": "latest"
+		"grunt-nodemon": "latest",
+		"grunt-preprocess": "latest",
+		"grunt-env": "latest"
 	}
 }
