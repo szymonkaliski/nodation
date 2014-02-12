@@ -6,7 +6,7 @@ define([
 	function Audio() {
 		window.AudioContext = window.AudioContext || window.webkitAudioContext;
 		this.context = new AudioContext();
-		this.reverb = new Reverb(this.context, { seconds: 1, decay: 3, reverse: 0 });
+		this.reverb = new Reverb(this.context, { seconds: 1, decay: 2, reverse: 0 });
 
 		this.reverb.connect(this.context.destination);
 
@@ -33,7 +33,7 @@ define([
 
 		var currentTime = this.context.currentTime;
 
-		var amps = FuncUtils.repeatedly(this.consts.voices.length, function(i) {
+		FuncUtils.repeatedly(this.consts.voices.length, function(i) {
 			var amp = this.context.createGainNode();
 			var ampVolume = this.consts.gain * volume * (this.consts.voices.length - i) / this.consts.voices.length;
 
