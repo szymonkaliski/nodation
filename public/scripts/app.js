@@ -28,10 +28,8 @@ require([
 			deletion: [ 120, 80, 80, 120 ]
 		},
 
-		nodes: Nodes,
-
 		init: function() {
-			this.nodes.setup(Vec2.create(this.settings.width, this.settings.height));
+			this.nodes = new Nodes(Vec2.create(this.settings.width, this.settings.height), 2);
 
 			this.on("leftMouseDown", function(event) {
 				this.nodes.mouseDown(Vec2.create(event.x, event.y));
