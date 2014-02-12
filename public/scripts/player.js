@@ -47,24 +47,24 @@ define([
 	};
 
 	Player.prototype.play = function(connections, nodes, windowSize) {
-			connections
-				.filter(ObjectUtils.property("shouldPlay"))
-				.forEach(function(connection) {
-					nodes
-						.filter(function(node) {
-							return (node.id == connection.endId);
-						})
-						.forEach(function(node) {
-							var halfWindow = windowSize.clone().scale(0.5);
-							var maxDistance = halfWindow.distance(windowSize);
-							var distance = node.pos.clone().distance(halfWindow) / maxDistance;
+			var playingConnections = connections.filter(ObjectUtils.property("shouldPlay"));
 
-							this.audio.play(distance);
-						}.bind(this));
+			playingConnections.forEach(function(connection) {
+				nodes
+					.filter(function(node) {
+						return (node.id == connection.endId);
+					})
+					.forEach(function(node) {
+						var halfWindow = windowSize.clone().scale(0.5);
+						var maxDistance = halfWindow.distance(windowSize);
+						var distance = node.pos.clone().distance(halfWindow) / maxDistance;
 
-						// mark connection as played
-						connection.shouldPlay = false;
-				}.bind(this));
+						this.audio.play(1 - distance, 1 / playingConnections.length);
+					}.bind(this));
+
+				// mark connection as played
+				connection.shouldPlay = false;
+			}.bind(this));
 	};
 
 	return Player;
