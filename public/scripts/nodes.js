@@ -24,6 +24,7 @@ define([
 	};
 
 	return {
+		player: null,
 		nodes: [],
 		connections: [],
 		deletionPoint: { size: 0, pos: null },
@@ -31,7 +32,8 @@ define([
 		setup: function(windowSize, playerSpeed) {
 			consts.windowSize = windowSize;
 			this.deletionPoint.pos = Vec2.create(windowSize.x / 2, windowSize.y);
-			if (playerSpeed) Player.setSpeed(playerSpeed);
+
+			this.player = new Player(playerSpeed);
 		},
 
 		mouseDown: function(pos) {
@@ -206,8 +208,8 @@ define([
 			this.deletionPoint.size = consts.k * this.deletionPoint.size + (1 - consts.k) * (this.isNodeDragged() ? consts.deletionSize : 0);
 
 			// walk and play connections
-			this.connections = Player.walk(this.connections);
-			Player.play(this.connections, this.nodes, consts.windowSize);
+			this.connections = this.player.walk(this.connections);
+			this.player.play(this.connections, this.nodes, consts.windowSize);
 		},
 
 		serialize: function() {
