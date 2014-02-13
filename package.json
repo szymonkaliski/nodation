@@ -6,9 +6,7 @@
 	"dependencies": {
 		"async": "latest",
 		"express": "latest",
-		"mongojs": "latest"
-	},
-	"devDependencies": {
+		"mongojs": "latest",
 		"bower": "latest",
 		"grunt": "latest",
 		"grunt-contrib-copy": "latest",
