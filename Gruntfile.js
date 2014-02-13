@@ -34,7 +34,7 @@ module.exports = function(grunt) {
 				command: 'npm update'
 			},
 			bower: {
-				command: 'bower update'
+				command: './node_modules/bower/bin/bower update'
 			},
 			mongod: {
 				command: 'mongod'
