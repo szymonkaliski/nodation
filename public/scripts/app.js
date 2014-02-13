@@ -36,8 +36,8 @@ require([
 
 			if (this.api.shouldLoadData()) {
 				this.api.downloadData(function(data) {
-					console.log(data);
-				});
+					this.nodes.deserialize(data);
+				}.bind(this));
 			}
 
 			this.on("leftMouseDown", function(event) {
@@ -58,7 +58,8 @@ require([
 
 			this.on("keyDown", function(event) {
 				if (event.str == "s") {
-					this.api.saveData({ "asd": "TEST" }, function(response) {
+					this.api.saveData(this.nodes.serialize(), function(response) {
+						// TODO: add UI to this
 						console.log(response.responseText);
 					});
 				}

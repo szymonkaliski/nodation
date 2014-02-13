@@ -25,7 +25,7 @@ define([], function() {
 		};
 
 		request.setRequestHeader("Content-Type", "application/json");
-		request.send(JSON.stringify(data));
+		request.send(data);
 	};
 
 	return Api;
