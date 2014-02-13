@@ -6,8 +6,7 @@ module.exports = function(grunt) {
 				files: [
 					{expand: true, cwd: 'components/pex/src/', src: ['**'], dest: 'public/scripts/libraries/pex/'},
 					{expand: true, cwd: 'components/requirejs/', src: ['require.js'], dest: 'public/scripts/libraries/', filter: 'isFile'},
-					{expand: true, cwd: 'components/requirejs-text/', src: ['text.js'], dest: 'public/scripts/libraries/', filter: 'isFile'},
-					{expand: true, cwd: 'components/requirejs-domready/', src: ['domReady.js'], dest: 'public/scripts/libraries/', filter: 'isFile'}
+					{expand: true, cwd: 'components/requirejs-text/', src: ['text.js'], dest: 'public/scripts/libraries/', filter: 'isFile'}
 				]
 			}
 		},

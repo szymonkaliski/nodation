@@ -2,15 +2,17 @@ require.config({
 	baseUrl: "scripts",
 	paths: {
 		"pex": "libraries/pex/pex",
-		"lib": "libraries/pex/lib"
+		"lib": "libraries/pex/lib",
+		"text": "libraries/text"
 	}
 });
 
 require([
 	"pex/sys/Window",
 	"pex/geom/Vec2",
+	"api",
 	"nodes"
-], function(Window, Vec2, Nodes) {
+], function(Window, Vec2, Api, Nodes) {
 	Window.create({
 		settings: {
 			type: "2d",
@@ -29,7 +31,14 @@ require([
 		},
 
 		init: function() {
+			this.api = new Api();
 			this.nodes = new Nodes(Vec2.create(this.settings.width, this.settings.height), 3);
+
+			if (this.api.shouldLoadData()) {
+				this.api.downloadData(function(data) {
+					console.log(data);
+				});
+			}
 
 			this.on("leftMouseDown", function(event) {
 				this.nodes.mouseDown(Vec2.create(event.x, event.y));
