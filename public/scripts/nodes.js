@@ -82,7 +82,7 @@ define([
 			}
 			else {
 				var closestNode = getClosestNode(this.nodes, pos);
-				if (closestNode.distance < this.consts.nodeSize) {
+				if (closestNode.distance < this.consts.nodeSize && closestNode.id != connection.startId) {
 					connection.endId = closestNode.id;
 					connection.endPos = closestNode.pos;
 					connection.dragged = false;
