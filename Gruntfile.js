@@ -126,5 +126,5 @@ module.exports = function(grunt) {
 	grunt.registerTask('default', ['lint', 'process', 'run']);
 
 	// heroku task
-	grunt.registerTask('heroku', ['build', 'lint', 'requirejs', 'env:dist', 'preprocess:index']);
+	grunt.registerTask('heroku', ['exec:bower', 'exec:pex', 'copy', 'lint', 'requirejs', 'env:dist', 'preprocess:index']);
 };
