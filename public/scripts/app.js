@@ -69,10 +69,10 @@ require([
 
 			var color = function(rgbArray) {
 				var colorString = rgbArray
-				.map(function(value, index) {
-					return index == 3 ? value / 255 : value;
-				})
-				.join(",");
+					.map(function(value, index) {
+						return index == 3 ? value / 255 : value;
+					})
+					.join(",");
 				return "rgba(" + colorString + ")";
 			};
 
