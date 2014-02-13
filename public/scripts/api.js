@@ -1,7 +1,7 @@
 define([], function() {
 	var Api = function() {
 		var locations = location.search.split("?graph=");
-		this.id =(locations.length === 2) ? locations[1] : null;
+		this.id = (locations.length === 2) ? locations[1] : null;
 	};
 
 	Api.prototype.shouldLoadData = function() {
@@ -12,6 +12,20 @@ define([], function() {
 		require(["text!/api/load/" + this.id], function(data) {
 			callback(JSON.parse(data));
 		});
+	};
+
+	Api.prototype.saveData = function(data, callback) {
+		var request = new XMLHttpRequest();
+
+		request.open("POST", "/api/save/");
+		request.onreadystatechange = function() {
+			if (request.readyState === 4 && callback) {
+				callback(request);
+			}
+		};
+
+		request.setRequestHeader("Content-Type", "application/json");
+		request.send(JSON.stringify(data));
 	};
 
 	return Api;

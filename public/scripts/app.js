@@ -55,6 +55,14 @@ require([
 			this.on("mouseMoved", function(event) {
 				this.nodes.mouseMoved(Vec2.create(event.x, event.y));
 			}.bind(this));
+
+			this.on("keyDown", function(event) {
+				if (event.str == "s") {
+					this.api.saveData({ "asd": "TEST" }, function(response) {
+						console.log(response.responseText);
+					});
+				}
+			}.bind(this));
 		},
 
 		draw: function() {
