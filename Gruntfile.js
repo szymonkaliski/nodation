@@ -12,24 +12,6 @@ module.exports = function(grunt) {
 			}
 		},
 		exec: {
-			pex: {
-				command: function() {
-					var cmd = "";
-					cmd += "cd components";
-					cmd += "&&";
-
-					if (grunt.file.isDir('components/pex/')) {
-						cmd += "cd pex";
-						cmd += "&&";
-						cmd += "git pull";
-					}
-					else {
-						cmd += "git clone git@github.com:szymonkaliski/pex.git";
-					}
-
-					return cmd;
-				}
-			},
 			npm: {
 				command: 'npm update'
 			},
@@ -111,7 +93,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-preprocess');
 
 	// building task
-	grunt.registerTask('build', ['exec:npm', 'exec:bower', 'exec:pex', 'copy']);
+	grunt.registerTask('build', ['exec:npm', 'exec:bower', 'copy']);
 
 	// linting task
 	grunt.registerTask('lint', ['jshint']);
@@ -126,5 +108,5 @@ module.exports = function(grunt) {
 	grunt.registerTask('default', ['lint', 'process', 'run']);
 
 	// heroku task
-	grunt.registerTask('heroku', ['exec:bower', 'exec:pex', 'copy', 'lint', 'requirejs', 'env:dist', 'preprocess:index']);
+	grunt.registerTask('heroku', ['exec:bower', 'copy', 'lint', 'requirejs', 'env:dist', 'preprocess:index']);
 };

@@ -4,6 +4,7 @@
 	"dependencies": {
 		"requirejs": "latest",
 		"requirejs-text": "latest",
-		"requirejs-domready": "latest"
+		"requirejs-domready": "latest",
+		"pex": "https://github.com/szymonkaliski/pex/archive/master.zip"
 	}
 }
