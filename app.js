@@ -3,6 +3,7 @@ var express = require("express");
 var mongojs = require("mongojs");
 
 var mongodb = mongojs(process.env.MONGOLAB_URI || "nodation");
+var ObjectId = mongojs.ObjectId;
 
 // configure app
 var app = express();
@@ -15,7 +16,11 @@ app.configure(function() {
 // load modules as needed
 if (fs.existsSync("./modules")) {
 	// setup app modules
-	var modulesOptions = { "app": app, "mongodb": mongodb };
+	var modulesOptions = {
+		"app": app,
+		"mongodb": mongodb,
+		"ObjectId": ObjectId
+	};
 
 	// load app modules
 	fs.readdirSync("./modules").forEach(function(module) {
