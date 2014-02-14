@@ -123,6 +123,7 @@ require([
 			};
 
 			// clear screen
+			this.canvas.width = this.canvas.width;
 			drawRect(this.ctx, Vec2.create(0, 0), Vec2.create(this.settings.width, this.settings.height), color(this.colors.background));
 
 			// draw connections
