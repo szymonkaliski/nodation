@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 			main: {
 				files: [
 					{expand: true, cwd: 'components/pex/src/', src: ['**'], dest: 'public/scripts/libraries/pex/'},
-					{expand: true, cwd: 'components/jquery/', src: ['jquery.js'], dest: 'public/scripts/libraries/'},
+					{expand: true, cwd: 'components/jquery/dist/', src: ['jquery.js'], dest: 'public/scripts/libraries/'},
 					{expand: true, cwd: 'components/requirejs/', src: ['require.js'], dest: 'public/scripts/libraries/'},
 					{expand: true, cwd: 'components/requirejs-text/', src: ['text.js'], dest: 'public/scripts/libraries/'}
 				]
