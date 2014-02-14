@@ -18,7 +18,7 @@ define([], function() {
 		this.output.disconnect();
 	};
 
-	Reverb.prototype.buildImpulse = function () {
+	Reverb.prototype.buildImpulse = function() {
 		var rate = this.context.sampleRate;
 		var length = rate * this.seconds;
 		var decay = this.decay;

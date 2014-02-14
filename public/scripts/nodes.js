@@ -109,7 +109,7 @@ define([
 			playState: 0,
 			hoverSize: this.consts.nodeSize,
 			dragged: true,
-			hover: false
+			hover: true
 		});
 	};
 

@@ -33,11 +33,9 @@ require([
 		},
 
 		init: function() {
-			var windowSize = Vec2.create(this.settings.width, this.settings.height);
-
 			this.api = new Api();
 			this.gui = new Gui();
-			this.nodes = new Nodes(windowSize, 3);
+			this.nodes = new Nodes(Vec2.create(this.settings.width, this.settings.height), 3);
 
 			if (this.api.shouldLoadData()) {
 				this.api.downloadData(function(data) {
@@ -80,7 +78,8 @@ require([
 				context.fill();
 			};
 
-			var drawLine = function(context, start, end, stroke) {
+			var drawLine = function(context, start, end, stroke, width) {
+				context.lineWidth = width || 3;
 				context.beginPath();
 				context.moveTo(start.x, start.y);
 				context.lineTo(end.x, end.y);
@@ -123,9 +122,8 @@ require([
 			this.ctx.fill();
 
 			// draw connections
-			this.ctx.lineWidth = 3;
 			this.nodes.connectionsArray().forEach(function(connection) {
-				drawLine(this.ctx, connection.startPos, connection.endPos, color(this.colors.connection));
+				drawLine(this.ctx, connection.startPos, connection.endPos, color(this.colors.connection), 3);
 
 				var outletVector = Vec2.create()
 					.asSub(connection.endPos, connection.startPos)
@@ -134,10 +132,7 @@ require([
 					.add(connection.startPos);
 
 				drawCircle(this.ctx, outletVector, connection.size, color(this.colors.connection));
-
-				if (connection.dragged) {
-					drawCircle(this.ctx, connection.endPos, connection.size, color(this.colors.connection));
-				}
+				drawCircle(this.ctx, connection.endPos, connection.size, color(this.colors.connection));
 			}.bind(this));
 
 			this.nodes.playPointsArray().forEach(function(playPoint) {

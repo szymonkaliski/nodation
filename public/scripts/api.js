@@ -1,8 +1,8 @@
 define([], function() {
-	var Api = function() {
+	function Api() {
 		var locations = location.search.split("?graph=");
 		this.id = (locations.length === 2) ? locations[1] : null;
-	};
+	}
 
 	Api.prototype.shouldLoadData = function() {
 		return Boolean(this.id);
