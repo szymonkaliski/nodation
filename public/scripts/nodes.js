@@ -96,7 +96,7 @@ define([
 
 	Nodes.prototype.mouseMoved = function(pos) {
 		this.nodes.forEach(function(node) {
-			node.hover = (node.pos.distance(pos) < node.hoverSize);
+			node.hover = (node.pos.distance(pos) < node.hoverSize || node.dragged);
 		});
 	};
 
