@@ -20,7 +20,7 @@ define([
 			m: 0.8,
 			nodeSize: 20,
 			hoverSize: 30,
-			deletionSize: 30,
+			deletionSize: 50,
 			windowSize: windowSize
 		};
 

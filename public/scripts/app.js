@@ -3,7 +3,8 @@ require.config({
 	paths: {
 		"pex": "libraries/pex/pex",
 		"lib": "libraries/pex/lib",
-		"text": "libraries/text"
+		"text": "libraries/text",
+		"jquery": "libraries/jquery"
 	}
 });
 
@@ -23,24 +24,19 @@ require([
 		},
 
 		colors: {
-			background:		[  30,  30,  30, 255 ],
-			node:					[ 120, 120, 120, 255 ],
-			nodeHover:		[  80,  80,  80, 120 ],
-			connection:		[ 120, 120, 120, 255 ],
-			playPoint:		[  80, 120,  80, 255 ],
-			deletion:			[ 120,  80,  80, 120 ],
-			button: {
-				save:				[  90,  90, 140, 255 ],
-				saveHover:	[ 120, 120, 140, 255 ],
-				saveText:		[  30,  30,  30, 255 ]
-			}
+			background:	[ 237, 235, 230, 255 ],
+			node:				[  64,  59,  51, 255 ],
+			nodeHover:	[  64,  59,  51, 120 ],
+			connection:	[  64,  59,  51, 255 ],
+			playPoint:	[ 148, 199, 182, 255 ],
+			deletion:		[ 211, 100,  59, 120 ]
 		},
 
 		init: function() {
 			var windowSize = Vec2.create(this.settings.width, this.settings.height);
 
 			this.api = new Api();
-			this.gui = new Gui(windowSize);
+			this.gui = new Gui();
 			this.nodes = new Nodes(windowSize, 3);
 
 			if (this.api.shouldLoadData()) {
@@ -49,17 +45,15 @@ require([
 				}.bind(this));
 			}
 
-			this.on("leftMouseDown", function(event) {
-				var mousePos = Vec2.create(event.x, event.y);
+			this.gui.saveEvent(function() {
+				this.api.saveData(this.nodes.serialize(), function(response) {
+					window.history.pushState("nodation", "nodation", "/?graph=" + response.responseText.replace(/\"/g, ""));
+					// TODO: add gui with info that page is saved
+				});
+			}.bind(this));
 
-				if (this.gui.isPressed(mousePos)) {
-					this.api.saveData(this.nodes.serialize(), function(response) {
-						window.history.pushState("nodation", "nodation", "/?graph=" + response.responseText.replace(/\"/g, ""));
-					});
-				}
-				else {
-					this.nodes.mouseDown(mousePos);
-				}
+			this.on("leftMouseDown", function(event) {
+				this.nodes.mouseDown(Vec2.create(event.x, event.y));
 			}.bind(this));
 
 			this.on("mouseDragged", function(event) {
@@ -71,16 +65,12 @@ require([
 			}.bind(this));
 
 			this.on("mouseMoved", function(event) {
-				var mousePos = Vec2.create(event.x, event.y);
-
-				this.gui.mouseMoved(mousePos);
-				this.nodes.mouseMoved(mousePos);
+				this.nodes.mouseMoved(Vec2.create(event.x, event.y));
 			}.bind(this));
 		},
 
 		draw: function() {
 			this.nodes.update();
-			this.gui.update();
 
 			// drawing functions
 			var drawCircle = function(context, pos, radius, fill) {
@@ -167,16 +157,6 @@ require([
 			// draw removal point
 			this.nodes.deletionCircleArray().forEach(function(circle) {
 				drawCircle(this.ctx, circle.pos, circle.size, color(this.colors.deletion));
-			}.bind(this));
-
-			// draw gui buttons
-			this.gui.buttonsArray().forEach(function(button) {
-				drawRoundRect(this.ctx, button.posA, button.posB, color(this.colors.button[button.name]), button.size);
-				drawRoundRect(this.ctx, button.posA, button.posB, color(this.colors.button[button.name + "Hover"].map(function(value, index) {
-					return index == 3 ? Math.ceil(button.hoverAlpha * value) : value;
-				})), button.size);
-
-				drawText(this.ctx, Vec2.create().asAdd(button.posA, Vec2.create(12, 14)), button.name, color(this.colors.button[button.name + "Text"]));
 			}.bind(this));
 		}
 	});

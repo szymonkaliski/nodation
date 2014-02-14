@@ -2,6 +2,7 @@
 	"name": "nodation",
 	"version": "0.0.1",
 	"dependencies": {
+		"jquery": "latest",
 		"requirejs": "latest",
 		"requirejs-text": "latest",
 		"pex": "https://github.com/szymonkaliski/pex/archive/master.zip"
