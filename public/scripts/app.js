@@ -11,8 +11,9 @@ require([
 	"pex/sys/Window",
 	"pex/geom/Vec2",
 	"api",
+	"gui",
 	"nodes"
-], function(Window, Vec2, Api, Nodes) {
+], function(Window, Vec2, Api, Gui, Nodes) {
 	Window.create({
 		settings: {
 			type: "2d",
@@ -22,17 +23,25 @@ require([
 		},
 
 		colors: {
-			background: [ 30, 30, 30, 255 ],
-			node: [ 120, 120, 120, 255 ],
-			nodeHover: [ 80, 80, 80, 120 ],
-			connection: [ 120, 120, 120, 255 ],
-			playPoint: [ 80, 120, 80, 255 ],
-			deletion: [ 120, 80, 80, 120 ]
+			background:		[  30,  30,  30, 255 ],
+			node:					[ 120, 120, 120, 255 ],
+			nodeHover:		[  80,  80,  80, 120 ],
+			connection:		[ 120, 120, 120, 255 ],
+			playPoint:		[  80, 120,  80, 255 ],
+			deletion:			[ 120,  80,  80, 120 ],
+			button: {
+				save:				[  90,  90, 140, 255 ],
+				saveHover:	[ 120, 120, 140, 255 ],
+				saveText:		[  30,  30,  30, 255 ]
+			}
 		},
 
 		init: function() {
+			var windowSize = Vec2.create(this.settings.width, this.settings.height);
+
 			this.api = new Api();
-			this.nodes = new Nodes(Vec2.create(this.settings.width, this.settings.height), 3);
+			this.gui = new Gui(windowSize);
+			this.nodes = new Nodes(windowSize, 3);
 
 			if (this.api.shouldLoadData()) {
 				this.api.downloadData(function(data) {
@@ -41,7 +50,16 @@ require([
 			}
 
 			this.on("leftMouseDown", function(event) {
-				this.nodes.mouseDown(Vec2.create(event.x, event.y));
+				var mousePos = Vec2.create(event.x, event.y);
+
+				if (this.gui.isPressed(mousePos)) {
+					this.api.saveData(this.nodes.serialize(), function(response) {
+						window.history.pushState("nodation", "nodation", "/?graph=" + response.responseText.replace(/\"/g, ""));
+					});
+				}
+				else {
+					this.nodes.mouseDown(mousePos);
+				}
 			}.bind(this));
 
 			this.on("mouseDragged", function(event) {
@@ -53,21 +71,16 @@ require([
 			}.bind(this));
 
 			this.on("mouseMoved", function(event) {
-				this.nodes.mouseMoved(Vec2.create(event.x, event.y));
-			}.bind(this));
+				var mousePos = Vec2.create(event.x, event.y);
 
-			this.on("keyDown", function(event) {
-				if (event.str == "s") {
-					this.api.saveData(this.nodes.serialize(), function(response) {
-						// TODO: add UI to this
-						console.log(response.responseText);
-					});
-				}
+				this.gui.mouseMoved(mousePos);
+				this.nodes.mouseMoved(mousePos);
 			}.bind(this));
 		},
 
 		draw: function() {
 			this.nodes.update();
+			this.gui.update();
 
 			// drawing functions
 			var drawCircle = function(context, pos, radius, fill) {
@@ -83,6 +96,26 @@ require([
 				context.lineTo(end.x, end.y);
 				context.strokeStyle = stroke;
 				context.stroke();
+			};
+
+			var drawRoundRect = function(context, posA, posB, fill, radius) {
+				radius = radius || 10;
+				var width = Math.abs(posA.x - posB.x);
+				var height = Math.abs(posA.y - posB.y);
+
+				context.lineJoin = "round";
+				context.lineWidth = radius;
+				context.fillStyle = fill;
+				context.strokeStyle = fill;
+
+				context.strokeRect(posA.x + radius / 2, posA.y + radius / 2, width - radius, height - radius);
+				context.fillRect(posA.x + radius / 2, posA.y + radius / 2, width - radius, height - radius);
+			};
+
+			var drawText = function(context, pos, text, stroke, font) {
+				context.font = font || "12px Helvetica";
+				context.fillStyle = stroke;
+				context.fillText(text, pos.x, pos.y);
 			};
 
 			var color = function(rgbArray) {
@@ -134,6 +167,16 @@ require([
 			// draw removal point
 			this.nodes.deletionCircleArray().forEach(function(circle) {
 				drawCircle(this.ctx, circle.pos, circle.size, color(this.colors.deletion));
+			}.bind(this));
+
+			// draw gui buttons
+			this.gui.buttonsArray().forEach(function(button) {
+				drawRoundRect(this.ctx, button.posA, button.posB, color(this.colors.button[button.name]), button.size);
+				drawRoundRect(this.ctx, button.posA, button.posB, color(this.colors.button[button.name + "Hover"].map(function(value, index) {
+					return index == 3 ? Math.ceil(button.hoverAlpha * value) : value;
+				})), button.size);
+
+				drawText(this.ctx, Vec2.create().asAdd(button.posA, Vec2.create(12, 14)), button.name, color(this.colors.button[button.name + "Text"]));
 			}.bind(this));
 		}
 	});
