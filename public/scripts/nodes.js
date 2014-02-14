@@ -210,13 +210,20 @@ define([
 	};
 
 	Nodes.prototype.serialize = function() {
+		var windowCenter = this.consts.windowSize.clone().scale(0.5);
+
 		return JSON.stringify({
-			nodes: this.nodes,
+			nodes: this.nodes.map(function(node) {
+				node.centerPos = Vec2.create().asSub(node.pos, windowCenter);
+				return node;
+			}),
 			connections: this.connections
 		});
 	};
 
 	Nodes.prototype.deserialize = function(object) {
+		var windowCenter = this.consts.windowSize.clone().scale(0.5);
+
 		if (!(object instanceof Object)) {
 			object = JSON.parse(object);
 		}
@@ -226,7 +233,7 @@ define([
 		}.bind(this);
 
 		this.nodes = object.nodes.map(function(node) {
-			node.pos = Vec2.create(node.pos.x, node.pos.y);
+			node.pos = Vec2.create().asAdd(windowCenter, node.centerPos);
 			return node;
 		});
 

@@ -4,9 +4,10 @@ define([
 	"pex/utils/ObjectUtils",
 	"audio"
 ], function(Vec2, FuncUtils, ObjectUtils, Audio) {
-	function Player(speed) {
+	function Player(speed, maxSize) {
 		this.audio = new Audio();
 		this.speed = speed || 2;
+		this.maxSize = maxSize || 1000;
 	}
 
 	Player.prototype.walk = function(connections) {
@@ -56,7 +57,7 @@ define([
 					})
 					.forEach(function(node) {
 						var halfWindow = windowSize.clone().scale(0.5);
-						var maxDistance = halfWindow.distance(windowSize);
+						var maxDistance = this.maxSize;
 						var distance = node.pos.clone().distance(halfWindow) / maxDistance;
 
 						this.audio.play(1 - distance, 1 / playingConnections.length);

@@ -6,7 +6,7 @@ define([
 	function Audio() {
 		window.AudioContext = window.AudioContext || window.webkitAudioContext;
 		this.context = new AudioContext();
-		this.reverb = new Reverb(this.context, { seconds: 1, decay: 2, reverse: 0 });
+		this.reverb = new Reverb(this.context, { seconds: 1.75, decay: 2, reverse: 0 });
 
 		this.reverb.connect(this.context.destination);
 
