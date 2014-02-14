@@ -87,6 +87,12 @@ require([
 				context.stroke();
 			};
 
+			var drawRect = function(context, posA, posB, fill) {
+				context.rect(posA.x, posA.y, posB.x, posB.y);
+				context.fillStyle = fill;
+				context.fill();
+			};
+
 			var drawRoundRect = function(context, posA, posB, fill, radius) {
 				radius = radius || 10;
 				var width = Math.abs(posA.x - posB.x);
@@ -117,9 +123,7 @@ require([
 			};
 
 			// clear screen
-			this.ctx.rect(0, 0, this.settings.width, this.settings.height);
-			this.ctx.fillStyle = color(this.colors.background);
-			this.ctx.fill();
+			drawRect(this.ctx, Vec2.create(0, 0), Vec2.create(this.settings.width, this.settings.height), color(this.colors.background));
 
 			// draw connections
 			this.nodes.connectionsArray().forEach(function(connection) {
