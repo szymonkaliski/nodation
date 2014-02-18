@@ -68,5 +68,9 @@ define([
 			}.bind(this));
 	};
 
+	Player.prototype.update = function() {
+		this.audio.update();
+	};
+
 	return Player;
 });

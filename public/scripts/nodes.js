@@ -207,6 +207,7 @@ define([
 		// walk and play connections
 		this.connections = this.player.walk(this.connections);
 		this.player.play(this.connections, this.nodes, this.consts.windowSize);
+		this.player.update();
 	};
 
 	Nodes.prototype.serialize = function() {

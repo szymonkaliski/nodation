@@ -1,6 +1,7 @@
-<!doctype html5>
+<!DOCTYPE HTML>
 <head>
 	<title>nodation</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 	<link href="http://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet" type="text/css">
 
