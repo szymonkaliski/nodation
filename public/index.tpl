@@ -3,7 +3,7 @@
 	<title>nodation</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
-	<link href="http://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Droid+Sans:400" rel="stylesheet" type="text/css">
 
 	<style>
 		* {
@@ -44,10 +44,9 @@
 			border-bottom: 1px solid rgb(187, 180, 161);
 		}
 
-		.bar .save {
+		.bar .button {
 			position: fixed;
 			top: 0;
-			right: 0;
 			cursor: pointer;
 			background: rgb(26, 24, 21);
 
@@ -59,16 +58,92 @@
 			transition: 250ms;
 		}
 
-		.bar .save:hover {
+		.bar .button:hover {
 			background: rgb(45, 42, 36);
 			color: rgb(187, 180, 161);
+		}
+
+		.bar .button.save {
+			right: 0;
+		}
+
+		.bar .button.info {
+			left: 0;
+		}
+
+		.overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+
+			background: rgba(0, 0, 0, 0.4);
+			cursor: pointer;
+		}
+
+		.overlay .text {
+			position: fixed;
+			width: 600px;
+			height: 150px;
+			padding: 20px;
+
+			left: 50%;
+			top: 50%;
+
+			margin-left: -300px;
+			margin-top: -75px;
+
+			background: rgb(64, 59, 51);
+			color: rgb(237, 235, 230);
+			font-weight: 400;
+			font-size: 14px;
+		}
+
+		.overlay .header {
+			font-size: 18px;
+		}
+
+		.overlay ul {
+			padding-top: 25px;
+			padding-left: 30px;
+			padding-bottom: 15px;
+		}
+
+		.overlay ul li {
+			padding-bottom: 4px;
+		}
+
+		.overlay .experiment {
+			font-size: 12px;
+			color: rgba(237, 235, 230, 0.3);
 		}
 	</style>
 </head>
 <body>
+	<div class="overlay" style="display:none">
+		<div class="text">
+			<span class="header">
+				Nodation is new take on composing music, using graph structures.
+			</span>
+
+			<ul>
+				<li>To create playing node, click anywhere on the screen.</li>
+				<li>To connect nodes, hover over one of them, and drag line to another one.</li>
+				<li>To remove nodes, drag them to bottom red part of the screen.</li>
+				<li>You can save your creations, and share output URL</li>
+			</ul>
+
+			<span class="experiment">
+				This is just an experiment and it may not work everywhere, it was tested on latest Google Chrome and Safari.
+			</span>
+		</div>
+	</div>
+
 	<div class="bar">
 		<span class="info">Experiment by <a href="http://treesmovethemost.com">Szymon Kaliski</a> made at <a href="http://fabrica.it">Fabrica</a> &copy; 2014</span>
-		<span class="save">SAVE</span>
+		<span class="button info">INFO</span>
+		<span class="button save">SAVE</span>
 	</div>
 
 	<!-- @if BUILD_ENV == 'DEVELOPMENT' -->
