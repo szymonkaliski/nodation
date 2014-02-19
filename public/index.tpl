@@ -137,7 +137,7 @@
 				<li>To create playing node, click anywhere on the screen.</li>
 				<li>To connect nodes, hover over one of them, and drag line to another one.</li>
 				<li>To remove nodes, drag them to bottom red part of the screen.</li>
-				<li>You can save your creations, and share output URL</li>
+				<li>You can save your creations, and share output URL.</li>
 			</ul>
 
 			<span class="experiment">
