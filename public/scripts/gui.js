@@ -20,7 +20,7 @@ define([
 		}
 
 		// fix for ipad scrolling
-		$(document).bind("touchmove", function(event) {
+		$(document).on("touchmove", function(event) {
 			event.preventDefault();
 		});
 	}
