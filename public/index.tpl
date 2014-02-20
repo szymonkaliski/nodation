@@ -1,13 +1,15 @@
 <!DOCTYPE HTML>
 <head>
 	<title>nodation</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Experimental webapp for creating music using graphs.">
 
-	<meta property="og:url" content="http://nodation.herokuapp.com" />
-	<meta property="og:title" content="nodation" />
-	<meta property="og:image" content="http://nodation.herokuapp.com/images/facebook.png" />
-	<meta property="og:description" content="Experimental webapp for creating music using graphs." />
+	<meta property="og:url" content="http://nodation.herokuapp.com">
+	<meta property="og:title" content="nodation">
+	<meta property="og:image" content="http://nodation.herokuapp.com/images/facebook.png">
+	<meta property="og:description" content="Experimental webapp for creating music using graphs.">
 
 	<link href="http://fonts.googleapis.com/css?family=Droid+Sans:400" rel="stylesheet" type="text/css">
 
@@ -16,6 +18,10 @@
 			margin: 0;
 			padding: 0;
 			font-family: "Droid Sans";
+		}
+
+		body {
+			overflow: hidden;
 		}
 
 		.bar {

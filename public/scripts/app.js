@@ -46,7 +46,6 @@ require([
 			this.gui.saveEvent(function() {
 				this.api.saveData(this.nodes.serialize(), function(response) {
 					window.history.pushState("nodation", "nodation", "/?graph=" + response.responseText.replace(/\"/g, ""));
-					// TODO: add gui with info that page is saved
 				});
 			}.bind(this));
 

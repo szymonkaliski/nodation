@@ -18,6 +18,11 @@ define([
 			this.overlay.fadeIn();
 			localStorage.setItem("alreadyRan", true);
 		}
+
+		// fix for ipad scrolling
+		$(document).bind("touchmove", function(event) {
+			event.preventDefault();
+		});
 	}
 
 	Gui.prototype.saveEvent = function(callback) {

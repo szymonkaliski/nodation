@@ -1,18 +1,42 @@
 define([
+	"jquery",
 	"pex/utils/FuncUtils",
 	"pex/utils/MathUtils",
 	"reverb"
-], function(FuncUtils, MathUtils, Reverb) {
+], function($, FuncUtils, MathUtils, Reverb) {
 	function Audio() {
 		window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 		this.context = new AudioContext();
 		this.master = this.context.createGainNode();
-		this.reverb = new Reverb(this.context, { seconds: 1.75, decay: 2, reverse: 0 });
 
 		this.master.gain.value = 1.0;
-		this.master.connect(this.reverb.input);
-		this.reverb.connect(this.context.destination);
+
+		// fix audio on iOS, and play without reverb
+		if (/iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
+			this.master.connect(this.context.destination);
+
+			// fix for iPad webaudio
+			this.touchStarted = false;
+			$(document).on("touchstart", function() {
+				if (!this.touchStarted) {
+					var buffer = this.context.createBuffer(1, 1, 22050);
+					var source = this.context.createBufferSource();
+					source.buffer = buffer;
+					source.connect(this.context.destination);
+					source.noteOn(0);
+
+					this.touchStarted = true;
+				}
+			}.bind(this));
+		}
+		// nice audio on desktop browsers
+		else {
+			this.reverb = new Reverb(this.context, { seconds: 1.75, decay: 2, reverse: 0 });
+
+			this.master.connect(this.reverb.input);
+			this.reverb.connect(this.context.destination);
+		}
 
 		this.consts = {
 			minFreq: 80,
