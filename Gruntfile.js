@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 				command: './node_modules/bower/bin/bower update'
 			},
 			mongod: {
-				command: 'mongod'
+				command: 'mongod --quiet --dbpath=/usr/local/var/mongodb'
 			}
 		},
 		jshint: {

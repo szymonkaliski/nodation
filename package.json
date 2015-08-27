@@ -1,22 +1,28 @@
 {
-	"name": "nodation",
-	"version": "0.0.1",
-	"description": "",
-	"main": "app.js",
-	"dependencies": {
-		"async": "latest",
-		"express": "latest",
-		"mongojs": "latest",
-		"bower": "latest",
-		"grunt": "latest",
-		"grunt-contrib-copy": "latest",
-		"grunt-contrib-jshint": "latest",
-		"grunt-contrib-watch": "latest",
-		"grunt-contrib-requirejs": "latest",
-		"grunt-concurrent": "latest",
-		"grunt-exec": "latest",
-		"grunt-nodemon": "latest",
-		"grunt-preprocess": "latest",
-		"grunt-env": "latest"
-	}
+  "name": "nodation",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "grunt"
+  },
+  "dependencies": {
+    "async": "^1.4.2",
+    "body-parser": "^1.13.3",
+    "bower": "^1.5.2",
+    "express": "^4.13.3",
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-concurrent": "^2.0.3",
+    "grunt-contrib-copy": "^0.8.1",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-requirejs": "^0.4.4",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-env": "^0.4.4",
+    "grunt-exec": "^0.4.6",
+    "grunt-nodemon": "^0.4.0",
+    "grunt-preprocess": "^5.0.1",
+    "mongojs": "^1.3.0",
+    "morgan": "^1.6.1"
+  }
 }

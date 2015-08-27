@@ -1,17 +1,18 @@
 var fs = require("fs");
 var express = require("express");
 var mongojs = require("mongojs");
+var bodyParser = require('body-parser');
+var logger = require('morgan');
 
 var mongodb = mongojs(process.env.MONGOLAB_URI || "nodation");
 var ObjectId = mongojs.ObjectId;
 
 // configure app
 var app = express();
-app.configure(function() {
-	app.use("/", express.static(__dirname + "/public"));
-	app.use(express.bodyParser());
-	app.use(express.logger());
-});
+
+app.use("/", express.static(__dirname + "/public"));
+app.use(bodyParser());
+app.use(logger('combined'));
 
 // load modules as needed
 if (fs.existsSync("./modules")) {
